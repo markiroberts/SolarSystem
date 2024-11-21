@@ -1,0 +1,26 @@
+# create virtual environment .venv
+# python -m venv .venv
+
+# upgrade pip if necessary
+# python -m pip install --upgrade pip
+
+# activate virtual environment .venv
+# .\.venv\Scripts\activate
+
+# install required libraries
+# pip install -r .\requirements.txt
+
+# uninstall libraries if needed to start again..
+# pip freeze > current.txt
+# pip uninstall -r .\current.txt -y
+
+
+numpy
+#tensorflow
+#tensorflow_datasets
+#keras==2.12
+#matplotlib
+pandas
+#seaborn
+pygame
+#ipykernel
