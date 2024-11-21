@@ -46,7 +46,7 @@ class Planet:
         self.name = name
         self.x = x
         self.y = y
-        self.radius = ( radius / 4 ) + 1
+        self.radius = ( radius / 2 ) + 1
         self.colour = colour
         self.mass = mass
         self.isSun = False
@@ -74,6 +74,31 @@ class Planet:
     def draw(self, win):
         if ( self.name == 'Moon'):
             pass
+        
+        if len(self.orbit) > 20:
+            x0 = None
+            y0 = None
+            count = 20
+
+            for trace in self.orbit[-20:]:
+                orbit_x = trace[0]
+                orbit_y = trace[1]
+#            if self.orbits:
+ #                   x1 = ( orbit_x + self.orbits.x ) * self.SCALE + ( WIN_WIDTH / 2  )
+ #                   y1 = ( orbit_y + self.orbits.y ) * self.SCALE + ( WIN_HEIGHT / 2 )
+ #               else:
+                colR = self.colour[0] * ( 20 - count ) / 20
+                colG = self.colour[1] * ( 20 - count ) / 20
+                colB = self.colour[2] * ( 20 - count ) / 20           
+                col = (colR, colG, colB)                      
+                x1 = ( orbit_x ) * self.SCALE + ( WIN_WIDTH / 2  )
+                y1 = ( orbit_y ) * self.SCALE + ( WIN_HEIGHT / 2 )
+                
+                if x0:
+                    pygame.draw.line(win, col,  (x0, y0), (x1, y1), 1 )
+                x0 = x1
+                y0 = y1
+                count -= 1
 
         if self.orbits:
             x = ( self.x + self.orbits.x ) * self.SCALE + ( WIN_WIDTH / 2  )
@@ -84,7 +109,8 @@ class Planet:
         pygame.draw.circle(win, self.colour, (x, y), self.radius)
         font = pygame.font.SysFont("arial", 12)
         text = font.render(self.name, True, self.colour)
-        win.blit(text, (x,y))
+        win.blit(text, (x - int(self.radius),y + self.radius))
+
 
     def attraction(self, other):
         other_x, other_y = (0,0)  #other.x, other.y
